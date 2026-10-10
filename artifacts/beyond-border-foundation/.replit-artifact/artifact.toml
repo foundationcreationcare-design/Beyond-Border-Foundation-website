@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Beyond Border Foundation"
+description = "A bilingual website for Beyond Border Foundation introducing its mission and community programs across southwestern Democratic Republic of the Congo, with transparent, editable pathways for support and field updates."
+version = "1.0.0"
+id = "artifacts/beyond-border-foundation"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19156
+
+[services.development]
+run = "pnpm --filter @workspace/beyond-border-foundation run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/beyond-border-foundation", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/beyond-border-foundation/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19156"
+BASE_PATH = "/"
